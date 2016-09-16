@@ -6,13 +6,16 @@ hardware on a local network.
 
 It outputs IPs, MACs and Vendors. For example:
 
-    192.168.0.12 d0:87:e2:__:__:__ "Samsung Electronics Co.,Ltd"
-    192.168.0.10 00:25:5c:__:__:__ "NEC Corporation"
-    192.168.0.254 00:07:cb:__:__:__ "FREEBOX SAS"
+    d0:87:e2:__:__:__ 192.168.0.12 Samsung Electronics Co.,Ltd
+    00:25:5c:__:__:__ 192.168.0.10 NEC Corporation
+    34:af:2c:__:__:__ 192.168.0.11 Nintendo Co., Ltd.
+    00:07:cb:__:__:__ 192.168.0.254 FREEBOX SAS
 
 Flip uses the GNU parallel utility to massively run parallel pings which, in
 turns, will fill the ARP cache table. This table is then parsed to look for
-hardware. The MAC addresses are then looked for using the `macvendors.co` API.
+hardware.
+
+The MAC prefixes are compared to a static list of vendor prefixes.
 
 Requirements
 ------------
@@ -20,10 +23,9 @@ Requirements
 Flip requires:
 
 - parallel
-- curl
-- arp command located in /usr/sbin
+- an access to /proc/net/arp
 
-On Debian, these can be installed with `sudo apt-get install parallel curl`.
+On Debian, `parallel` can be installed with `sudo apt-get install parallel`.
 
 Notes
 -----
